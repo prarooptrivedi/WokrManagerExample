@@ -23,6 +23,7 @@ class OneTimeWorkRequest : AppCompatActivity() {
         //this code
         val constraints=Constraints.Builder()
             .setRequiresCharging(true)
+                //set Check Internet Condition
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
 
