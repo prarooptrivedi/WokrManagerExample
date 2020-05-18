@@ -14,5 +14,10 @@ class MainActivity:AppCompatActivity() {
             val intent=Intent(this,OneTimeWorkRequest::class.java)
             startActivity(intent)
         }
+
+        btn_compressRequest.setOnClickListener{
+            val intent=Intent(this,OneTimeWorkRequestAnotherOne::class.java)
+            startActivity(intent)
+        }
     }
 }
