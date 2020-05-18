@@ -2,15 +2,20 @@ package com.example.workmanager
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.work.Constraints
-import androidx.work.NetworkType
+import androidx.work.*
 import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class OneTimeWorkRequest : AppCompatActivity() {
 
+
+
+
+    companion object{
+        const val KEY_COUNT_VALUE="key_count"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,19 +28,29 @@ class OneTimeWorkRequest : AppCompatActivity() {
         //this code
         val constraints=Constraints.Builder()
             .setRequiresCharging(true)
-                //set Check Internet Condition
+            //set Check Internet Condition
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
-
+            //For Subbmit Data
+        val data=Data.Builder()
+            .putInt(KEY_COUNT_VALUE,125)
+            .build()
 
         val workManager=WorkManager.getInstance(applicationContext)
-       val upLoadWorkRequest=OneTimeWorkRequest.Builder(UploadWorker::class.java)
-           .setConstraints(constraints)
-           .build()
+        val upLoadWorkRequest=OneTimeWorkRequest.Builder(UploadWorker::class.java)
+            .setConstraints(constraints)
+            .setInputData(data)
+            .build()
         workManager.enqueue(upLoadWorkRequest)
         workManager.getWorkInfoByIdLiveData(upLoadWorkRequest.id)
             .observe(this, Observer {
                 btn_message.text=it.state.name
+                if (it.state.isFinished){
+                    val data=it.outputData
+                    val message=data.getString(UploadWorker.KEY_Worker)
+                    Toast.makeText(applicationContext,message,Toast.LENGTH_LONG).show()
+                }
             })
+
     }
 }
