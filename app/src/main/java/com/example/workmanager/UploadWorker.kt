@@ -13,7 +13,7 @@ class UploadWorker(context: Context,params:WorkerParameters):Worker(context,para
         try {
 
 
-            for (i in 0..600) {
+            for (i in 0..60000) {
                 Log.i("MUTAG", "Uploadin $i")
             }
             return Result.success()
