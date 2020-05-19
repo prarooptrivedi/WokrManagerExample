@@ -20,6 +20,9 @@
         </activity>
         <activity android:name=".OneTimeWorkRequest">
         </activity>
+        <activity android:name=".OneTimeWorkRequestAnotherOne">
+
+        </activity>
     </application>
 
 </manifest>
