@@ -19,5 +19,9 @@ class MainActivity:AppCompatActivity() {
             val intent=Intent(this,OneTimeWorkRequestAnotherOne::class.java)
             startActivity(intent)
         }
+        btn_periodicsWorkRequest.setOnClickListener{
+            val intent=Intent(this,PeriodicWorkRequest::class.java)
+            startActivity(intent)
+        }
     }
 }
